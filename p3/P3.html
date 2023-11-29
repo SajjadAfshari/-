@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>ویدیو ریسپانسیو</title>
+  <style>
+    body {
+      font-family: "Estedad", sans-serif; 
+      background-color: #f2f2f2; 
+      margin: 0; 
+      padding: 0; 
+    }
+
+    button {
+      font-size: 14px; 
+      padding: 10px 20px; 
+      margin: 5px; 
+    }
+
+    video {
+      width: 100%; 
+      height: auto; 
+    }
+  </style>
+</head>
+<body>
+
+  <div> 
+    <video id="Produce" src="vid/Produce.mp4"></video>
+    <button id="backward" onclick="seekVideo(-15)">عقب </button>
+    <button id="forward" onclick="seekVideo(15)">جلو</button>
+    <button onclick="playPause()">توقف / پخش</button> 
+
+    <script>
+      const myVideo = document.getElementById("Produce"); 
+
+      function playPause() { 
+        myVideo.paused ? myVideo.play() : myVideo.pause(); 
+      } 
+
+      function resizeVideo() {
+        const video = document.getElementById("Produce");
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+
+        if (video.videoWidth > windowWidth) {
+          video.width = windowWidth;
+          video.height = (video.videoHeight * windowWidth) / video.videoWidth;
+        } else if (video.videoHeight > windowHeight) {
+          video.height = windowHeight;
+          video.width = (video.videoWidth * windowHeight) / video.videoHeight;
+        }
+      }
+
+      function seekVideo(seconds) {
+        myVideo.currentTime += seconds;
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        resizeVideo();
+        window.addEventListener("resize", resizeVideo);
+      });
+    </script>
+  </body>
+</html>
